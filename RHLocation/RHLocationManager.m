@@ -192,6 +192,12 @@ NSString *const kNotificationLocationData = @"kNotificationLocationData";
 
 - (void)startLocationWithAuthorizationType:(RHLocationAuthorizationType)type
 {
+#ifdef __IPHONE_9_0
+    if ([_locationManager respondsToSelector:@selector(allowsBackgroundLocationUpdates)]) {
+        _locationManager.allowsBackgroundLocationUpdates = YES;
+    }
+#endif
+    
     switch (type) {
         case RHLocationAuthorizationTypeAlways: {
             [self startLocationWithAlwaysAuthorization];

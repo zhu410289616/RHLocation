@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RHLocation"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "A location kit based on LocationManager."
   s.homepage     = "https://github.com/zhu410289616/RHLocation"
   s.license      = { :type => "Apache", :file => "LICENSE" }
