@@ -51,9 +51,4 @@ typedef NS_ENUM(NSInteger, RHLocationManagerState) {
 - (void)startUpdatingLocation;
 - (void)stopUpdatingLocation;
 
-- (void)startUpdatingHeadingWithHeadingFilter:(CGFloat)filter;
-/** 默认为1度，设定为kCLHeadingFilterNone会提示任何角度改变。 */
-- (void)startUpdatingHeading;
-- (void)stopUpdatingHeading;
-
 @end

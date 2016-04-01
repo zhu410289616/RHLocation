@@ -10,14 +10,6 @@
 
 @implementation RHCacheLocationManager
 
-- (instancetype)init
-{
-    if (self = [super init]) {
-        _locationArray = [[NSMutableArray alloc] init];
-    }
-    return self;
-}
-
 - (void)startUpdatingLocationUseCache
 {
     _cacheLocation = [[NSUserDefaults sharedInstance] location];
@@ -31,8 +23,8 @@
 {
     [super locationManager:manager didUpdateLocations:locations];
     
-    if (locations.count > 0) {
-        [_locationArray addObject:locations];
+    if (self.lastLocation) {
+        [[NSUserDefaults sharedInstance] setLocation:self.lastLocation];
     }
 }
 

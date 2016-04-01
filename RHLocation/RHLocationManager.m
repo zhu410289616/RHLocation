@@ -98,24 +98,6 @@ NSString *const kNotificationLocationData = @"kNotificationLocationData";
     _locationState = RHLocationManagerStateUnknow;
 }
 
-- (void)startUpdatingHeadingWithHeadingFilter:(CGFloat)filter
-{
-    if ([CLLocationManager headingAvailable]) {
-        _locationManager.headingFilter = filter;
-        [_locationManager startUpdatingHeading];
-    }
-}
-
-- (void)startUpdatingHeading
-{
-    [self startUpdatingHeadingWithHeadingFilter:1];
-}
-
-- (void)stopUpdatingHeading
-{
-    [_locationManager stopUpdatingHeading];
-}
-
 #pragma mark -
 #pragma mark CLLocationManagerDelegate method
 
@@ -146,7 +128,6 @@ NSString *const kNotificationLocationData = @"kNotificationLocationData";
     [self notifyLocationStateChanged:RHLocationManagerStateSuccess];
     if (locations.count > 0) {
         _lastLocation = locations[0];
-        [[NSUserDefaults sharedInstance] setLocation:_lastLocation];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLocationData object:_lastLocation userInfo:@{@"Source":@"Location"}];
     }
 }
@@ -154,19 +135,6 @@ NSString *const kNotificationLocationData = @"kNotificationLocationData";
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     [self notifyLocationStateChanged:RHLocationManagerStateFailed];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
-{
-    if (newHeading.headingAccuracy < 0) {
-        return;
-    }
-    
-    // Use the true heading if it is valid.
-    CLLocationDirection theHeading = ((newHeading.trueHeading > 0) ? newHeading.trueHeading : newHeading.magneticHeading);
-#ifdef DEBUG
-    NSLog(@"theHeading: %f", theHeading);
-#endif
 }
 
 #pragma mark -

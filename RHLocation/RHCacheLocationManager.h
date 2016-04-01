@@ -13,8 +13,6 @@
 
 @interface RHCacheLocationManager : RHLocationManager
 
-@property (nonatomic, strong, readonly) NSMutableArray *locationArray;
-
 /** 最近一次缓存的gps位置信息 */
 @property (nonatomic, strong, readonly) CLLocation *cacheLocation;
 
