@@ -72,6 +72,7 @@ NSString *const kNotificationLocationData = @"kNotificationLocationData";
         _locationManager.distanceFilter = distance;
         [self startLocationWithAuthorizationType:_authorizationType];
     } else {
+        _locationState = RHLocationManagerStateUnknow;
         [self notifyLocationStateChanged:RHLocationManagerStateDisabled];
     }
 }
@@ -163,7 +164,9 @@ NSString *const kNotificationLocationData = @"kNotificationLocationData";
     
     // Use the true heading if it is valid.
     CLLocationDirection theHeading = ((newHeading.trueHeading > 0) ? newHeading.trueHeading : newHeading.magneticHeading);
+#ifdef DEBUG
     NSLog(@"theHeading: %f", theHeading);
+#endif
 }
 
 #pragma mark -
